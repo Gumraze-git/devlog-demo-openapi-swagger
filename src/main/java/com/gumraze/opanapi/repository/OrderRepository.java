@@ -11,6 +11,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @EntityGraph(attributePaths = "items")
     Optional<Order> findWithItemsById(Long id);
 
+    @Override
     @EntityGraph(attributePaths = "items")
-    List<Order> findAllWithItems();
+    List<Order> findAll();
 }

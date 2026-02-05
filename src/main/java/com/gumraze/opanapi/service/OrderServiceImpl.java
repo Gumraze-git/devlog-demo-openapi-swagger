@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(readOnly = true)
     public List<OrderResponse> getOrders() {
-        return orderRepository.findAllWithItems().stream()
+        return orderRepository.findAll().stream()
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
