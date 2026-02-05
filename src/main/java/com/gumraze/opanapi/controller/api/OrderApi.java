@@ -5,6 +5,7 @@ import com.gumraze.opanapi.dto.OrderResponse;
 import com.gumraze.opanapi.dto.OrderUpdateRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -61,6 +62,15 @@ public interface OrderApi {
             @Parameter(description = "주문 ID", example = "1")
             Long orderId
     );
+
+    @Operation(summary = "주문 목록 조회", description = "전체 주문 목록을 조회합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "성공",
+                    content = @Content(array = @ArraySchema(
+                            schema = @Schema(implementation = OrderResponse.class)
+                    )))
+    })
+    ResponseEntity<java.util.List<OrderResponse>> getOrders();
 
     @Operation(summary = "주문 수정(전체 교체)", description = "주문 항목을 전부 교체합니다.")
     @RequestBody(

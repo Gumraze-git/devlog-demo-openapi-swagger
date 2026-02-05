@@ -40,6 +40,12 @@ public class OrderController implements OrderApi {
     }
 
     @Override
+    @GetMapping
+    public ResponseEntity<java.util.List<OrderResponse>> getOrders() {
+        return ResponseEntity.ok(orderService.getOrders());
+    }
+
+    @Override
     @PutMapping("/{orderId}")
     public ResponseEntity<OrderResponse> updateOrder(
             @PathVariable Long orderId,

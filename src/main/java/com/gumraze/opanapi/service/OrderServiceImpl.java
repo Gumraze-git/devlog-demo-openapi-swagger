@@ -42,6 +42,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<OrderResponse> getOrders() {
+        return orderRepository.findAllWithItems().stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public OrderResponse updateOrder(Long orderId, OrderUpdateRequest request) {
         Order order = orderRepository.findWithItemsById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException("Order not found: " + orderId));
