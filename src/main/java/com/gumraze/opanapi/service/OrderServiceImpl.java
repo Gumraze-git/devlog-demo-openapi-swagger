@@ -99,22 +99,22 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderResponse toResponse(Order order) {
         List<OrderItemResponse> itemResponses = order.getItems().stream()
-                .map(item -> new OrderItemResponse(
-                        item.getId(),
-                        item.getCoffee() == null ? null : item.getCoffee().getId(),
-                        item.getCoffeeName(),
-                        item.getUnitPrice(),
-                        item.getQuantity(),
-                        item.getUnitPrice() * item.getQuantity()
-                ))
+                .map(item -> OrderItemResponse.builder()
+                        .id(item.getId())
+                        .coffeeId(item.getCoffee() == null ? null : item.getCoffee().getId())
+                        .coffeeName(item.getCoffeeName())
+                        .unitPrice(item.getUnitPrice())
+                        .quantity(item.getQuantity())
+                        .lineTotal(item.getUnitPrice() * item.getQuantity())
+                        .build())
                 .collect(Collectors.toList());
 
-        return new OrderResponse(
-                order.getId(),
-                order.getOrderedAt(),
-                order.getStatus(),
-                order.getTotalPrice(),
-                itemResponses
-        );
+        return OrderResponse.builder()
+                .id(order.getId())
+                .orderedAt(order.getOrderedAt())
+                .status(order.getStatus())
+                .totalPrice(order.getTotalPrice())
+                .items(itemResponses)
+                .build();
     }
 }
