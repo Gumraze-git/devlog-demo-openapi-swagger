@@ -13,6 +13,10 @@ import org.springframework.http.ProblemDetail;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @ApiResponses({
+        @ApiResponse(responseCode = "401", description = "인증 실패",
+                content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+        @ApiResponse(responseCode = "403", description = "권한 없음",
+                content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
         @ApiResponse(responseCode = "400", description = "요청 검증 실패",
                 content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
         @ApiResponse(responseCode = "404", description = "리소스를 찾을 수 없음",
