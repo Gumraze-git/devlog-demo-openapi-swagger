@@ -15,7 +15,8 @@ public class SecurityConfig {
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/swagger-ui.html",
-                        "/h2-console/**"
+                        "/h2-console/**",
+                        "/api/orders/**"
                 ))
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
                 .authorizeHttpRequests(auth -> auth
@@ -23,7 +24,8 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
-                                "/h2-console/**"
+                                "/h2-console/**",
+                                "/api/orders/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
